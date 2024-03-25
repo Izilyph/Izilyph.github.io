@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runes & Grind</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+</head>
+<body>
+    <form method="post" action="/runes/filter">Filters:
+        <p>Order runes by: <select name="orderBy">
+            <option value="effi" <%= orderBy === 'effi' ? 'selected' : '' %>>Efficiency</option>
+            <option value="effiHero" <%= orderBy === 'effiHero' ? 'selected' : '' %>>Efficiency Max Hero</option>
+            <option value="effiLegend" <%= orderBy === 'effiLegend' ? 'selected' : '' %>>Efficiency Max Legend</option>
+        </select></p>
+        <p>Set <select name="set">
+            <% selectSets.forEach(option => { %>
+                <option value="<%= option.value %>" <%= set === String(option.value) ? 'selected' : '' %>><%= option.label %></option>
+            <% }); %>
+        </select></p>
+        <p>Include Ancient <select name="includeAncient">
+            <option value="1" <%= includeAncient === '1' ? 'selected' : '' %>>Yes</option>
+            <option value="0" <%= includeAncient === '0' ? 'selected' : '' %>>No</option>
+        </select></p>
+        <p>Minimal Distance between Effi & Effi Max Hero <input type="number" min="0" value="<%= distanceMin %>" max="100" name="distanceMin"></p>
+        <button type="submit">Apply</button>
+    </form>
+    <div id="runes-div">
+        <% if (runes) { %>
+            <% runes.forEach(rune => { %>
+                <div>
+                    <div>
+                        <img src="/images/runes/<%= sets[rune.set_id] %>.png">
+                        <img src="/images/runes/rune<%= rune.slot_no %>.png">
+                    </div>
+                    <% if(rune.class > 6) {%>
+                        <img src="/images/runes/ancient.png">
+                    <% } %>
+                    <p><%= rune.efficiency %>%</p>
+                    <p><%= rune.efficiencyMaxHero %>%</p>
+                    <p><%= rune.efficiencyMaxLegend %>%</p>
+
+                    <p><%= rune.pri_eff[1] %>
+                    <%= stats[rune.pri_eff[0]] %></p>
+                    <% if(rune.prefix_eff[0]!=0) {%>
+                        <p><%= rune.prefix_eff[1] %>
+                        <%= stats[rune.prefix_eff[0]] %></p>
+                    <% } %>
+
+                    <% rune.sec_eff.forEach(stat => { %>
+                        <p><%= stat[1] %> +
+                        <% if(stat[3]!=0) {%>
+                            <%= stat[3] %> 
+                        <% } %>
+                        <%= stats[stat[0]] %>
+                        <% if(stat[2]!=0) {%>
+                            <img src="/images/runes/enchanted.png"> 
+                        <% } %></p>
+                    <% }); %>
+
+                </div>
+            <% }); %>
+          <% } %>
+    </div>
+</body>
