@@ -317,13 +317,14 @@ app.get('/runes',(req, res) => {
         orderBy: "effiHero",
         set: 0,
         includeAncient: 1,
-        distanceMin: 5
+        distanceMin: 5,
+        effiMin: 100
       });
     }  
 });
 
 app.post('/runes/filter', (req, res) => {
-  const { orderBy, set, includeAncient, distanceMin } = req.body;
+  const { orderBy, set, includeAncient, distanceMin, effiMin } = req.body;
   let runesToDisplay = runes;
   if(set!=0){
     runesToDisplay = runesToDisplay.filter(rune => rune.set_id == set);
@@ -331,7 +332,9 @@ app.post('/runes/filter', (req, res) => {
   if(includeAncient==0){
     runesToDisplay = runesToDisplay.filter(rune => rune.class <= 6);
   }
-  runesToDisplay = runesToDisplay.filter(rune => Math.abs(rune.efficiency - rune.efficiencyMaxHero) >= distanceMin);
+  runesToDisplay = runesToDisplay.filter(rune => Math.abs(rune.efficiency - rune.efficiencyMaxHero) >= parseInt(distanceMin));
+  console.log(effiMin)
+  runesToDisplay = runesToDisplay.filter(rune => rune.efficiencyMaxHero >= parseInt(effiMin));
   switch(orderBy){
       case 'effi':
         runesToDisplay.sort((a,b)=>{
@@ -360,7 +363,8 @@ app.post('/runes/filter', (req, res) => {
     set: set,
     includeAncient: includeAncient,
     distanceMin: distanceMin,
-    selectSets: selectSets
+    selectSets: selectSets,
+    effiMin: effiMin
   });
 });
 

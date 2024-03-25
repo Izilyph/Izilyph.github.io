@@ -14,6 +14,7 @@
             <option value="effiHero" <%= orderBy === 'effiHero' ? 'selected' : '' %>>Efficiency Max Hero</option>
             <option value="effiLegend" <%= orderBy === 'effiLegend' ? 'selected' : '' %>>Efficiency Max Legend</option>
         </select></p>
+        <p>Minial Efficiency Max Hero: <input type="number" min="70" value="<%= effiMin %>" max="200" name="effiMin"></p>
         <p>Set <select name="set">
             <% selectSets.forEach(option => { %>
                 <option value="<%= option.value %>" <%= set === String(option.value) ? 'selected' : '' %>><%= option.label %></option>
@@ -37,9 +38,9 @@
                     <% if(rune.class > 6) {%>
                         <img src="/images/runes/ancient.png">
                     <% } %>
-                    <p><%= rune.efficiency %>%</p>
-                    <p><%= rune.efficiencyMaxHero %>%</p>
-                    <p><%= rune.efficiencyMaxLegend %>%</p>
+                    <p>Efficiency: <%= rune.efficiency %>%</p>
+                    <p>Efficiency Max Hero: <%= rune.efficiencyMaxHero %>%</p>
+                    <p>Efficiency Max Legend: <%= rune.efficiencyMaxLegend %>%</p>
 
                     <p><%= rune.pri_eff[1] %>
                     <%= stats[rune.pri_eff[0]] %></p>
@@ -49,9 +50,10 @@
                     <% } %>
 
                     <% rune.sec_eff.forEach(stat => { %>
-                        <p><%= stat[1] %> +
+                        <p><%= stat[1] %>
+
                         <% if(stat[3]!=0) {%>
-                            <%= stat[3] %> 
+                           + <%= stat[3] %> 
                         <% } %>
                         <%= stats[stat[0]] %>
                         <% if(stat[2]!=0) {%>
