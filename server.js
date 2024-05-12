@@ -274,7 +274,7 @@ app.post('/upload', upload.single('jsonFile'), (req, res) => {
         try {
           // Parse the JSON data
           const jsonData = JSON.parse(data);
-          // Return a specific attribute (e.g., 'attributeName')
+          runes = [];
           jsonData.unit_list.forEach(unit => {
             const equipedRunes = unit.runes;
             equipedRunes.forEach(rune=>{
@@ -333,7 +333,6 @@ app.post('/runes/filter', (req, res) => {
     runesToDisplay = runesToDisplay.filter(rune => rune.class <= 6);
   }
   runesToDisplay = runesToDisplay.filter(rune => Math.abs(rune.efficiency - rune.efficiencyMaxHero) >= parseInt(distanceMin));
-  console.log(effiMin)
   runesToDisplay = runesToDisplay.filter(rune => rune.efficiencyMaxHero >= parseInt(effiMin));
   switch(orderBy){
       case 'effi':

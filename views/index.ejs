@@ -4,19 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SW</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+
 </head>
 <body>
-  <h1>Upload JSON File</h1>
-  <form action="/upload" method="post" enctype="multipart/form-data">
-    <input type="file" name="jsonFile" accept=".json" required>
-    <button type="submit">Upload</button>
-  </form>
-  <a href="/runes"><button>Runes</button></a>
-  <div>
-    <% if (message) { %>
-      <p><%= message %></p>
-    <% } %>
+  <div class="menu-container">
+    <div class="menu">
+      <h1>Sacrées Runes !</h1>
+      <a href="/"><button>Accueil</button></a>
+      <a href="/runes"><button>Oh les runes !</button></a>
+      <a href="/chart"><button>Oh les graphes !</button></a>
+    </div>
   </div>
+  <div class="content-div">
+    <div class="index-content">
+      <h1>Déposer le JSON d'or</h1>
+      <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="jsonFile" accept=".json" required>
+        <button type="submit">Upload</button>
+      </form>
+      <div>
+        <% if (message) { %>
+          <p><%= message %></p>
+        <% } %>
+      </div>
+    </div>
+    
+  </div>
+  
   
 </body>
 </html>

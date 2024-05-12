@@ -7,8 +7,18 @@
     <!-- Include Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../graph.js"></script> 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
-    <canvas id="myChart" width="400" height="400"></canvas>
+    <div class="menu-container">
+        <div class="menu">
+          <h1>Sacrées Runes !</h1>
+          <a href="/"><button>Home</button></a>
+          <a href="/runes"><button>Runes</button></a>
+          <a href="/chart"><button>Graph</button></a>
+        </div>
+    </div>
+    <div class="chart-container">
+        <canvas id="myChart"></canvas> 
+    </div>
 </body>

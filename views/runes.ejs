@@ -5,64 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Runes & Grind</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+    <script src="../rune.js"></script> 
 </head>
 <body>
-    <form method="post" action="/runes/filter">Filters:
-        <p>Order runes by: <select name="orderBy">
-            <option value="effi" <%= orderBy === 'effi' ? 'selected' : '' %>>Efficiency</option>
-            <option value="effiHero" <%= orderBy === 'effiHero' ? 'selected' : '' %>>Efficiency Max Hero</option>
-            <option value="effiLegend" <%= orderBy === 'effiLegend' ? 'selected' : '' %>>Efficiency Max Legend</option>
-        </select></p>
-        <p>Minial Efficiency Max Hero: <input type="number" min="70" value="<%= effiMin %>" max="200" name="effiMin"></p>
-        <p>Set <select name="set">
-            <% selectSets.forEach(option => { %>
-                <option value="<%= option.value %>" <%= set === String(option.value) ? 'selected' : '' %>><%= option.label %></option>
-            <% }); %>
-        </select></p>
-        <p>Include Ancient <select name="includeAncient">
-            <option value="1" <%= includeAncient === '1' ? 'selected' : '' %>>Yes</option>
-            <option value="0" <%= includeAncient === '0' ? 'selected' : '' %>>No</option>
-        </select></p>
-        <p>Minimal Distance between Effi & Effi Max Hero <input type="number" min="0" value="<%= distanceMin %>" max="100" name="distanceMin"></p>
-        <button type="submit">Apply</button>
-    </form>
-    <div id="runes-div">
-        <% if (runes) { %>
-            <% runes.forEach(rune => { %>
-                <div>
-                    <div>
-                        <img src="/images/runes/<%= sets[rune.set_id] %>.png">
-                        <img src="/images/runes/rune<%= rune.slot_no %>.png">
-                    </div>
-                    <% if(rune.class > 6) {%>
-                        <img src="/images/runes/ancient.png">
-                    <% } %>
-                    <p>Efficiency: <%= rune.efficiency %>%</p>
-                    <p>Efficiency Max Hero: <%= rune.efficiencyMaxHero %>%</p>
-                    <p>Efficiency Max Legend: <%= rune.efficiencyMaxLegend %>%</p>
-
-                    <p><%= rune.pri_eff[1] %>
-                    <%= stats[rune.pri_eff[0]] %></p>
-                    <% if(rune.prefix_eff[0]!=0) {%>
-                        <p><%= rune.prefix_eff[1] %>
-                        <%= stats[rune.prefix_eff[0]] %></p>
-                    <% } %>
-
-                    <% rune.sec_eff.forEach(stat => { %>
-                        <p><%= stat[1] %>
-
-                        <% if(stat[3]!=0) {%>
-                           + <%= stat[3] %> 
-                        <% } %>
-                        <%= stats[stat[0]] %>
-                        <% if(stat[2]!=0) {%>
-                            <img src="/images/runes/enchanted.png"> 
-                        <% } %></p>
-                    <% }); %>
-
-                </div>
-            <% }); %>
-          <% } %>
+    <div class="menu-container">
+        <div class="menu">
+          <h1>Sacrées Runes !</h1>
+          <a href="/">
+            <img src="/images/stickers/nicki.png">
+            <button>Home</button>
+        </a>
+          <a href="/runes">
+            <img src="/images/stickers/veromos.png">
+            <button>Runes</button>
+        </a>
+          <a href="/chart">
+            <img src="/images/stickers/elia.png">
+            <button>Graph</button>
+        </a>
+        </div>
     </div>
+    <div>
+        <form method="post" action="/runes/filter">Filters:
+            <p>Order runes by: <select name="orderBy">
+                <option value="effi" <%= orderBy === 'effi' ? 'selected' : '' %>>Efficiency</option>
+                <option value="effiHero" <%= orderBy === 'effiHero' ? 'selected' : '' %>>Efficiency Max Hero</option>
+                <option value="effiLegend" <%= orderBy === 'effiLegend' ? 'selected' : '' %>>Efficiency Max Legend</option>
+            </select></p>
+            <p>Minial Efficiency Max Hero: <input type="number" min="70" value="<%= effiMin %>" max="200" name="effiMin"></p>
+            <p>Set <select name="set">
+                <% selectSets.forEach(option => { %>
+                    <option value="<%= option.value %>" <%= set === String(option.value) ? 'selected' : '' %>><%= option.label %></option>
+                <% }); %>
+            </select></p>
+            <p>Include Ancient <select name="includeAncient">
+                <option value="1" <%= includeAncient === '1' ? 'selected' : '' %>>Yes</option>
+                <option value="0" <%= includeAncient === '0' ? 'selected' : '' %>>No</option>
+            </select></p>
+            <p>Minimal Distance between Effi & Effi Max Hero <input type="number" min="0" value="<%= distanceMin %>" max="100" name="distanceMin"></p>
+            <button type="submit">Apply</button>
+        </form>
+        <div id="runes-div">
+            <% if (runes) { %>
+                <% runes.forEach(rune => { %>
+                    <div class="rune">
+                        <div class="set">
+                            <img  src="/images/runes/<%= sets[rune.set_id] %>.png">
+                        </div>
+                        <div class="slot">
+                            <img src="/images/runes/rune<%= rune.slot_no %>.png" alt="<%= rune.slot_no %>">
+                        </div>
+                        <% if(rune.class > 6) {%>
+                            <img src="/images/runes/ancient.png">
+                        <% } %>
+                        <p class="effi-leg">Efficiency Max Legend: <%= rune.efficiencyMaxLegend %>%</p>
+                        <p class="effi-hero">Efficiency Max Hero: <%= rune.efficiencyMaxHero %>%</p>
+                        <p class="effi-normal">Efficiency: <%= rune.efficiency %>%</p>
+    
+    
+                        <p><%= rune.pri_eff[1] %>
+                        <%= stats[rune.pri_eff[0]] %></p>
+                        <% if(rune.prefix_eff[0]!=0) {%>
+                            <p><%= rune.prefix_eff[1] %>
+                            <%= stats[rune.prefix_eff[0]] %></p>
+                        <% } %>
+    
+                        <% rune.sec_eff.forEach(stat => { %>
+                            <p><%= stat[1] %>
+    
+                            <% if(stat[3]!=0) {%>
+                               + <%= stat[3] %> 
+                            <% } %>
+                            <%= stats[stat[0]] %>
+                            <% if(stat[2]!=0) {%>
+                                <img src="/images/runes/enchanted.png"> 
+                            <% } %></p>
+                        <% }); %>
+    
+                    </div>
+                <% }); %>
+              <% } %>
+        </div>
+    </div>
+    
 </body>

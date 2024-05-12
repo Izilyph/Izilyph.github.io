@@ -1,4 +1,75 @@
+html{
+    height: 100%;
+
+}
+
+body{
+    background-color: black;
+    color: aliceblue;
+    grid-template-columns: 10% 90%;
+    display: grid;
+    height: 100%;
+}
+
+.menu-container{
+    background-color: grey;
+    height: 100%;
+}
+
+.menu{
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+}
+
+.index-content{
+    border: 2px solid white;
+    border-radius: 5px;
+    width: 50%;
+    text-align: center;
+    margin: auto;
+}
+
 #runes-div{
     display: grid;
     grid-template-columns: repeat(3,1fr);
+}
+
+.rune{
+    border: 1px solid black;
+    position: relative;
+}
+
+.set{
+    position: absolute;
+    transform: translateX(-50%);
+    width: 6%;
+}
+
+.set img{
+    width: 100%;
+}
+
+
+
+.slot{
+    width: 10%;
+}
+
+.slot img{
+    width: 100%;
+}
+
+.effi-leg{
+    color:darkorange
+}
+
+.effi-hero{
+    color: darkorchid;
+}
+
+.effi-normal{
+    color:cornflowerblue;
+}
+
+.chart-container{
 }
